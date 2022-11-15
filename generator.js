@@ -15,9 +15,11 @@ const questionTypes = require("./questionTypes");
 
 const YEAR_MULTIPLYER = 70;
 const MONEY_MULTIPLYER = 1000000;
+
+
 //Generates a uniform distribution accross some empty array,
 //All numbers in array will sum to 1
-function generateDistribution(enumeration) {
+function generateUniformDistribution(enumeration) {
   size = enumeration.length;
   array = Array(size);
 
@@ -50,12 +52,18 @@ function generateKeyValuePairs(enumeration, dataArray) {
   return data;
 }
 
-function generateData(enumeration) {
-  array = generateDistribution(enumeration);
+// For generating data for questions with radial button options (Employees can only select one option on survey)
+function generateRadialBtnData(enumeration) {
+  array = generateUniformDistribution(enumeration);
   pairs = generateKeyValuePairs(enumeration, array);
   return pairs;
 }
 
+// For generating data for questions with checkbox button options (Employees can select multiple options on survey)
+function generateCheckboxBtnData(enumeration){
+  //TO IMPLEMENT 
+  return;
+}
 //Question One
 //Avg yrs working in art museum field: YEARS - FLOAT
 function genOne() {
@@ -75,7 +83,7 @@ function genTwo() {
 function genThree() {
   //First, randomize questions
   enumeration = questionTypes.POSITION_LEVELS;
-  data = generateData(enumeration);
+  data = generateRadialBtnData(enumeration);
 
   return data;
 }
@@ -84,16 +92,17 @@ function genThree() {
 //Type of position: % IN EACH RESPONSE OPTION
 function genFour() {
   enumeration = questionTypes.POSITION_TYPES;
-  data = generateData(enumeration);
+  data = generateRadialBtnData(enumeration);
 
   return data;
 }
 
-//Question five, can select more than one option so doesn't need to add up to 1 but for now it will
+//Question Five, can select more than one option so doesn't need to add up to 1 but for now it will
 //Category of museum position: % IN EACH RESPONSE OPTION
 function genFive() {
   enumeration = questionTypes.POSITION_CATEGORIES;
-  data = generateData(enumeration);
+  //CHANGE THIS TO generateCheckboxBtnData WHEN THAT FUNCTION IS FINISHED
+  data = generateRadialBtnData(enumeration);
   return data;
 }
 
@@ -101,7 +110,7 @@ function genFive() {
 //Can an employee be a union member: % IN EACH RESPONSE OPTION
 function genSix() {
   enumeration = questionTypes.UNION;
-  data = generateData(enumeration);
+  data = generateRadialBtnData(enumeration);
   return data;
 }
 
@@ -109,7 +118,7 @@ function genSix() {
 //How are you compensated: % IN EACH RESPONSE OPTION
 function genSeven() {
   enumeration = questionTypes.POSITION_COMPENSATION_TYPE;
-  data = generateData(enumeration);
+  data = generateRadialBtnData(enumeration);
   return data;
 }
 
@@ -124,17 +133,20 @@ function genEight() {
 //"Compared to people at similar position levels at MY MUSEUM I think my salary is...": % IN EACH RESPONSE OPTON ACROSS ORGS
 function genNine() {
   enumeration = questionTypes.POSITION_FAIRNESS_AT_ORG;
-  data = generateData(enumeration);
+  data = generateRadialBtnData(enumeration);
   return data;
 }
 
-//Question 10
+//Question ten
 //"Compared to people at similar position levels at OTHER MUSEUMS I think that my salary is...": % IN EACH RESPONSE OPTION ACROSS ORGS
 function genTen() {
   enumeration = questionTypes.POSITION_FAIRNESS_AT_OTHER_ORGS;
-  data = generateData(enumeration);
+  data = generateRadialBtnData(enumeration);
   return data;
 }
+
+//Question 11 
+//Times recieved promotion: % in each response 
 
 functionList = [
   genOne(),
@@ -146,23 +158,22 @@ functionList = [
   genSeven(),
   genEight(),
   genNine(),
-  genTen(),
+  genTen()
 ];
 
 orgAggregate = {};
 fieldAggregate = {};
 
 for (var i = 0; i < functionList.length; i++) {
-  orgAggregate[(i + 1).toString()] = functionList[i];
+  orgAggregate["Question " + (i + 1).toString()] = functionList[i];
 }
 
 for (var i = 0; i < functionList.length; i++) {
-  fieldAggregate[(i + 1).toString()] = functionList[i];
+  fieldAggregate["Question " + (i + 1).toString()] = functionList[i];
 }
 
 e = { "ORG": orgAggregate, "field": fieldAggregate };
 
-function createRandomAggregate() {}
 module.exports = () => {
   const data = e;
   return data;
