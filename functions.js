@@ -1,3 +1,6 @@
+//This file holds the functions to generate random numbers for each question.
+//Reference: https://docs.google.com/spreadsheets/d/1l-831rVtQ0gDN6RcPKvq0eqro_KvWgNK/edit#gid=1400163921
+
 // This will only cover the first 9 questions from the excel sheet, differs from actual survey
 
 //   TYPES
@@ -13,12 +16,14 @@
 
 const questionTypes = require("./questionTypes");
 
-//Max years possible 
+//Max years possible
 const YEAR_MULTIPLYER = 70;
 
-//Max money possible 
+//Max money possible
 const MONEY_MULTIPLYER = 1000000;
 
+//For checkbox questions (more than one selection possible) the maximum random increase that can be applied
+const RANDOM_INCREASE_MAX = 0.3;
 
 //Generates a uniform distribution accross some empty array,
 //All numbers in array will sum to 1
@@ -55,6 +60,25 @@ function generateKeyValuePairs(enumeration, dataArray) {
   return data;
 }
 
+//function taken from https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random
+function getRandomInt(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min) + min); // The maximum is exclusive and the minimum is inclusive
+}
+
+function generateRandomIncreases(array) {
+  //For loop that loops arbitrary amount of times
+  for (var i = 0; i < getRandomInt(0, Math.floor(array.length / 2)); i++) {
+    //During the loop, get a random index...
+    index = getRandomInt(0, array.length);
+    //Then increment that index by RANDOM_INCREASE_MAX;
+    array[index] = array[index] + Math.random() * RANDOM_INCREASE_MAX;
+  }
+
+  return array;
+}
+
 // For generating data for questions with radial button options (Employees can only select one option on survey)
 function generateRadialBtnData(enumeration) {
   array = generateUniformDistribution(enumeration);
@@ -63,9 +87,16 @@ function generateRadialBtnData(enumeration) {
 }
 
 // For generating data for questions with checkbox button options (Employees can select multiple options on survey)
-function generateCheckboxBtnData(enumeration){
-  //TO IMPLEMENT 
-  return;
+function generateCheckboxBtnData(enumeration) {
+  //First generate a uniform distribution just like radial button
+  array = generateUniformDistribution(enumeration);
+
+  //Randomly select a few indexes and increase by random amount
+  array = generateRandomIncreases(array);
+
+  pairs = generateKeyValuePairs(enumeration, array);
+
+  return pairs;
 }
 //Question One
 //Avg yrs working in art museum field: YEARS - FLOAT
@@ -78,7 +109,7 @@ function genOne() {
 //Avg yrs working at current museum: YEARS - FLOAT
 function genTwo() {
   data = Math.random() * YEAR_MULTIPLYER;
-  return data ;
+  return data;
 }
 
 //Question Three
@@ -105,7 +136,7 @@ function genFour() {
 function genFive() {
   enumeration = questionTypes.POSITION_CATEGORIES;
   //CHANGE THIS TO generateCheckboxBtnData WHEN THAT FUNCTION IS FINISHED
-  data = generateRadialBtnData(enumeration);
+  data = generateCheckboxBtnData(enumeration);
   return data;
 }
 
@@ -148,8 +179,39 @@ function genTen() {
   return data;
 }
 
-//Question 11 
-//Times recieved promotion: % in each response 
+//Question 11
+//Average Rate of Promotion (Title change and pay increase beyond CoL): Float
+function getEleven() {
+  promotions = getRandomInt(1, 6);
+  avgYrsWorked = Math.random() * YEAR_MULTIPLYER;
+
+  return promotions / avgYrsWorked;
+}
+
+//Question 12
+//How many times have you recieved a promotion? : % in each category
+function getTwelve() {
+  return;
+}
+
+//Question 13 
+//Does your compensation cover living expenses? : % in each category 
+function getThirteen(){
+  enumeration = questionTypes.LIVING_EXPENSES;
+  data = generateRadialBtnData(enumeration);
+
+  return data
+}
+
+//Question 14 
+//COVID return-to-work policy : % in each category (checkbox)
+function getFourteen(){
+  enumeration = questionTypes.LIVING_EXPENSES;
+  data = generateCheckboxBtnData(enumeration);
+
+  return data;
+}
+
 
 
 functionList = [
@@ -162,7 +224,10 @@ functionList = [
   genSeven(),
   genEight(),
   genNine(),
-  genTen()
+  genTen(),
+  getEleven(),
+  getThirteen(),
+  getFourteen()
 ];
 
 orgAggregate = {};
@@ -176,7 +241,9 @@ for (var i = 0; i < functionList.length; i++) {
   fieldAggregate["Question " + (i + 1).toString()] = functionList[i];
 }
 
-allAggregates = { "ORG": orgAggregate, "field": fieldAggregate };
+allAggregates = { ORG: orgAggregate, field: fieldAggregate };
+
+//Export our JSON
 module.exports = {
-    allAggregates
-  };
+  allAggregates,
+};

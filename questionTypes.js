@@ -1,3 +1,5 @@
+//This document holds possible responses in the form.
+
 const POSITION_LEVELS = [
   "Voluntary",
   "Entry-level",
@@ -85,6 +87,22 @@ const POSITION_FAIRNESS_AT_OTHER_ORGS = [
   "Below others",
 ];
 
+const LIVING_EXPENSES = [
+  "Always enough to cover living expenses",
+  "Usually enough to cover expenses",
+  "Sometimes enough to cover expenses",
+  "Rarely or never enough to cover expenses",
+];
+
+const WORK_FROM_HOME = [
+  "I am/will be working in-person only",
+  "I am/will be working in a hybrid setup where the museum chooses how many and which days to work from home and which days to work from the museum",
+  "I am/will be working in a hybrid setup where I get to choose how many and which days to work from home and which days to work in the museum",
+  "I am/will be working in a hybrid setup where the museum chooses how many days to work from home and how many days to work from the museum and I get to choose which days",
+  "I am/will be working from home only",
+  "I don’t know much about the museum’s return-to-work plans",
+];
+
 module.exports = {
   POSITION_TYPES,
   POSITION_LEVELS,
@@ -94,5 +112,7 @@ module.exports = {
   UNION,
   POSITION_COMPENSATION_TYPE,
   POSITION_FAIRNESS_AT_OTHER_ORGS,
-  POSITION_FAIRNESS_AT_ORG
+  POSITION_FAIRNESS_AT_ORG,
+  LIVING_EXPENSES,
+  WORK_FROM_HOME
 };
