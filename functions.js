@@ -206,7 +206,7 @@ function getThirteen(){
 //Question 14 
 //COVID return-to-work policy : % in each category (checkbox)
 function getFourteen(){
-  enumeration = questionTypes.LIVING_EXPENSES;
+  enumeration = questionTypes.WORK_FROM_HOME;
   data = generateCheckboxBtnData(enumeration);
 
   return data;
