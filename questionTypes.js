@@ -103,6 +103,21 @@ const WORK_FROM_HOME = [
   "I don’t know much about the museum’s return-to-work plans",
 ];
 
+const CULTURE = [
+  "I believe that I can learn and grow in this organization",
+  "I feel burned out in this organization",
+  "My manager supports me",
+  "I believe performance reviews contribute to growth and/or advancement in my institution",
+  "Diversity and difference are not celebrated in this organization",
+  "I believe that what I do here is meaningful",
+  "The culture of my workplace negatively affects my mental and/or physical health",
+  "Mistakes are held against you in this organization",
+  "I would recommend this workplace to friends and family",
+  "I don’t feel that I have a voice in decision making in this organization",
+  "My institution provides management and/or leadership training for all supervisors",
+  "People in my organization are held accountable for discrimination and harassment",
+  "I feel like I have to hide some of who I am working in this organization",
+];
 module.exports = {
   POSITION_TYPES,
   POSITION_LEVELS,
@@ -114,5 +129,6 @@ module.exports = {
   POSITION_FAIRNESS_AT_OTHER_ORGS,
   POSITION_FAIRNESS_AT_ORG,
   LIVING_EXPENSES,
-  WORK_FROM_HOME
+  WORK_FROM_HOME,
+  CULTURE,
 };

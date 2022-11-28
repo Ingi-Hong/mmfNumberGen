@@ -212,33 +212,49 @@ function getFourteen(){
   return data;
 }
 
+//Question 15 
+//Museum culture : % in each category, point system 
+function getFifteen(){
+  enumeration = questionTypes.CULTURE;
+  array = Array(enumeration.length);
+  for (var i = 0; i < array.length; i++){
+    array[i] = (Math.random() * 2) - 1 
+  }
 
+  data = generateKeyValuePairs(enumeration, array);
+  console.log(array);
+  console.log(data);
+  
+  return data;
+
+}
 
 functionList = [
-  genOne(),
-  genTwo(),
-  genThree(),
-  genFour(),
-  genFive(),
-  genSix(),
-  genSeven(),
-  genEight(),
-  genNine(),
-  genTen(),
-  getEleven(),
-  getThirteen(),
-  getFourteen()
+  genOne,
+  genTwo,
+  genThree,
+  genFour,
+  genFive,
+  genSix,
+  genSeven,
+  genEight,
+  genNine,
+  genTen,
+  getEleven,
+  getThirteen,
+  getFourteen,
+  getFifteen
 ];
 
 orgAggregate = {};
 fieldAggregate = {};
 
 for (var i = 0; i < functionList.length; i++) {
-  orgAggregate["Question " + (i + 1).toString()] = functionList[i];
+  orgAggregate["Question " + (i + 1).toString()] = functionList[i]();
 }
 
 for (var i = 0; i < functionList.length; i++) {
-  fieldAggregate["Question " + (i + 1).toString()] = functionList[i];
+  fieldAggregate["Question " + (i + 1).toString()] = functionList[i]();
 }
 
 allAggregates = { ORG: orgAggregate, field: fieldAggregate };
