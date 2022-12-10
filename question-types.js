@@ -1,4 +1,12 @@
-//This document holds possible responses in the form.
+// Question data, to feed into functions.js  
+//Reference: https://docs.google.com/spreadsheets/d/1l-831rVtQ0gDN6RcPKvq0eqro_KvWgNK/edit#gid=1400163921
+
+/*
+  HOW TO ADD QUESTIONS 
+
+  If options are strings, create a const list with each option below. Add function to generator. 
+
+*/
 
 const POSITION_LEVELS = [
   "Voluntary",
@@ -55,8 +63,8 @@ const POSITION_CATEGORIES = [
 
 const DIRECT_EMPLOYMENT = [
   "Yes",
-  "No, I’m employed by a government agency (e.g., city, county, state)",
-  "No, I’m employed by a university or college",
+  "No, I'm employed by a government agency (e.g., city, county, state)",
+  "No, I'm employed by a university or college",
 ];
 
 const POSITION_ENDOWMENT = ["Yes", "No", "I don't know"];
@@ -113,7 +121,7 @@ const CULTURE = [
   "The culture of my workplace negatively affects my mental and/or physical health",
   "Mistakes are held against you in this organization",
   "I would recommend this workplace to friends and family",
-  "I don’t feel that I have a voice in decision making in this organization",
+  "I don't feel that I have a voice in decision making in this organization",
   "My institution provides management and/or leadership training for all supervisors",
   "People in my organization are held accountable for discrimination and harassment",
   "I feel like I have to hide some of who I am working in this organization",
